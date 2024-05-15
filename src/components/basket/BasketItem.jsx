@@ -1,7 +1,25 @@
 import styled from "styled-components";
 import Button from "../UI/Button";
+import { useContext } from "react";
+import { MealContext } from "../../context/MealContext";
 
-const BasketItem = ({ title, price, amount }) => {
+const BasketItem = ({ title, price, amount, id }) => {
+  const { increaseBasket,deleteBasketMeal} = useContext(MealContext);
+
+  const incrementHandler = () => {
+    const updatedAmount = amount + 1;
+    increaseBasket({ id, title, price, updatedAmount });
+  };
+
+  const decrementHandler = () => {
+    const updatedAmount = amount - 1;
+
+    if(amount <= 1){
+      deleteBasketMeal(id)
+    } else
+    increaseBasket({ id, title, price, updatedAmount });
+  };
+
   return (
     <Container>
       <MealInfo>
@@ -13,10 +31,10 @@ const BasketItem = ({ title, price, amount }) => {
       </MealInfo>
 
       <ButtonsContainer>
-        <Button variant="outlined" borderStyle="6px">
+        <Button variant="outlined" borderStyle="6px" onClick={incrementHandler}>
           +
         </Button>
-        <Button variant="outlined" borderStyle="6px">
+        <Button variant="outlined" borderStyle="6px" onClick={decrementHandler}>
           -
         </Button>
       </ButtonsContainer>

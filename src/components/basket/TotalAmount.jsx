@@ -4,7 +4,7 @@ const TotalAmount = () => {
   return (
     <Container>
       <StyledTotalAmount>Total Amount</StyledTotalAmount>
-      <TotalPrice>$123</TotalPrice>
+      <TotalPrice>$124</TotalPrice>
     </Container>
   );
 };

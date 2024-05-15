@@ -3,40 +3,19 @@ import Modal from "../UI/Modal";
 import BasketItem from "./BasketItem";
 import TotalAmount from "./TotalAmount";
 import Button from "../UI/Button";
-
-const MEALS = [
-  {
-    id: "f1",
-    title: "Sushi",
-    price: 22.99,
-    amount: 3,
-  },
-  {
-    id: "f2",
-    title: "Schnitzel",
-    price: 16.0,
-    amount: 3,
-  },
-  {
-    id: "f3",
-    title: "Barbecue Burger",
-    price: 12.99,
-    amount: 3,
-  },
-  {
-    id: "f4",
-    title: "Green Bowl",
-    price: 19.99,
-    amount: 3,
-  },
-];
+import { useContext } from "react";
+import { MealContext } from "../../context/MealContext";
 
 const Basket = ({ onClose }) => {
+  const { state } = useContext(MealContext);
+
+  console.log(state.basket[0])
+
   return (
     <Modal onClose={onClose}>
       <MealContainer>
-        {MEALS && MEALS.length > 0
-          ? MEALS.map((item) => <BasketItem key={item.id} {...item} />)
+        {state.basket && state.basket.length > 0
+          ? state.basket.map((item) => <BasketItem key={item.id} {...item} />)
           : null}
       </MealContainer>
       <TotalAmount />

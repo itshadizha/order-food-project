@@ -1,6 +1,4 @@
-import React from "react";
 import styled from "styled-components";
-
 import MealItemForm from "./MealItemForm";
 
 const MealItems = ({ title, description, price, id }) => {

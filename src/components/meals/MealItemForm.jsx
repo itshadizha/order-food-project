@@ -1,17 +1,32 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../UI/Button";
 import PlusIcon from "../../assets/icons/plus.svg?react";
 import styled from "styled-components";
+import { MealContext } from "../../context/MealContext";
 
-const MealItemForm = ({ id }) => {
+const MealItemForm = ({ id, title, price }) => {
+  const { addToBasket, state, increaseBasket } = useContext(MealContext);
+
   const [amount, setAmount] = useState(1);
 
   const amountChangeHandler = (event) => {
     setAmount(+event.target.value);
   };
+
   const submitHandler = (event) => {
     event.preventDefault();
+
+    const meal = state.basket.find((item) => item.title === title);
+
+    if (meal) {
+      const updatedAmount = meal.amount + amount;
+
+      increaseBasket({ id: meal.id, title, price, updatedAmount }, id);
+    } else {
+      addToBasket({ title, price, amount, id });
+    }
   };
+
   return (
     <AddAmount onSubmit={submitHandler}>
       <div>

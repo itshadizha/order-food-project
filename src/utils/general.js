@@ -24,3 +24,5 @@ export const items = [
     amount: 3,
   },
 ];
+
+export const BASE_URL = "https://626f7d5041ecdc1b.mokky.dev";

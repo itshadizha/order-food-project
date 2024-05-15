@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import BasketButton from "./BasketButton";
-import { items } from "../../utils/general";
+import { MealContext } from "../../context/MealContext";
 
 const Header = ({ openModal }) => {
   const [animationClass, setAnimationClass] = useState("");
+  const { state } = useContext(MealContext);
+
   const calculateTotalAmount = () => {
-    const sum = items.reduce((sum, item) => {
+    const sum = state.basket.reduce((sum, item) => {
       return sum + item.amount;
     }, 0);
     return sum;
@@ -16,12 +18,12 @@ const Header = ({ openModal }) => {
     setAnimationClass("bump");
     const id = setTimeout(() => {
       setAnimationClass("");
-
-      return () => {
-        clearTimeout(id);
-      };
     }, 300);
-  }, []);
+
+    return () => {
+      clearTimeout(id);
+    };
+  }, [setAnimationClass]);
 
   return (
     <Container>
@@ -47,11 +49,9 @@ const Container = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  /* padding-left: 4rem;
-  padding-right: 4rem;  */
   z-index: 1;
 `;
+
 const Logo = styled.p`
   font-weight: 600;
   line-height: 57px;
